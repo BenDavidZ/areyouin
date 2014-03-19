@@ -1,0 +1,26 @@
+{% extends 'areyouin/base.html' %}
+{% block title %}Login{% endblock %}
+{% block sidebar %}
+	<ul>
+		<li><a href="{% url 'areyouin:index' %}">Home</a>
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<h1>Login to your account.</h1>
+	{% if user.is_authenticated %}
+		<p>You are already logged in {{ user.username|title }}. <a href="{% url 'areyouin:index' %}">Home</a></p>
+	{% else %}
+		<p>Register below.</p>
+		
+		<form id="login_form" method="post" action="{% url 'areyouin:login' %}">
+			{% csrf_token %}
+			Username: <input type="text" name="username" value="" size="50"/><br/>
+			Password: <input type="password" name="password" value="" size="50"/><br/>
+			
+			<input type="submit" value="Login"/>	
+			
+		</form>
+	{% endif %}
+{% endblock %}
+			

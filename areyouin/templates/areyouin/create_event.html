@@ -1,0 +1,23 @@
+{% extends 'areyouin/base.html' %}
+{% block title %}New Event{% endblock %}
+
+
+{% block content %}
+	{{ event_form.media }}
+	<h1>Create Event</h1>
+	    <form id="event_form" method="post" action="{% url 'areyouin:create_event' %}">
+			{% csrf_token %}
+			{{ event_form.non_field_errors }}
+			{% for field in event_form %}
+				{{ field.errors }}<br>
+				{{ field.label_tag }}<br/> {{ field }}
+			{% endfor %}
+			
+			
+			<input class="btn btn-primary" type="submit" name="submit" value="Create" />
+		</form>
+		
+		
+
+{% endblock %}
+			

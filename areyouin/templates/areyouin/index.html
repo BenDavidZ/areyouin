@@ -1,0 +1,95 @@
+{% extends 'areyouin/base.html' %}
+{% load static %}
+
+{% block content %}
+	<div align="center"><img src="{% static 'areyouin_logo.png' %}"/></div>
+	
+	{% if not user.is_authenticated %}
+		<h1 align=center>Create. Invite. Enjoy.</h1>
+	{% else %}
+		{% if user.is_staff %}
+			<h2 class="sub-header">All Events</h1>
+			{% if all_events_list %}
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Event</th>
+							<th>Invited</th>
+							<th>Are In</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for event in all_events_list %}
+						<tr>
+							<td><a href="{% url 'areyouin:detail' event.id %}">{{ event.event_name }}</a></td>
+							<td>{{ event.participant_count }} invited</td>
+							<td>{{ event.participant_confirmed }} {{ event.participant_confirmed|pluralize:"is,are" }} in</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			{% else %}
+				<p>No events to display</p>
+			{% endif %}
+		{% endif %}
+			<h2 class="sub-header">Events for {{ user.first_name|default:user.username }} ({{ user.username }})</h2>
+			
+			<div class="col-lg-5">
+			<h3 class="sub-header">Are you in?</h3>
+			{% if unconfirmed_events_list %}
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Event</th>
+							<th>Invited</th>
+							<th>Are In</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for event in unconfirmed_events_list %}
+						<tr>
+							<td><a href="{% url 'areyouin:detail' event.id %}">{{ event.event_name }}</a></td>
+							<td>{{ event.participant_count }} invited</td>
+							<td>{{ event.participant_confirmed }} {{ event.participant_confirmed|pluralize:"is,are" }} in</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			{% else %}
+				<p>No events to display</p>
+			{% endif %}
+			</div>
+			<div class="col-lg-5 col-lg-offset-1">
+			<h3 class="sub-header">You're in!</h3>
+			{% if confirmed_events_list %}
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Event</th>
+							<th>Invited</th>
+							<th>Are In</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for event in confirmed_events_list %}
+						<tr>
+							<td><a href="{% url 'areyouin:detail' event.id %}">{{ event.event_name }}</a></td>
+							<td>{{ event.participant_count }} invited</td>
+							<td>{{ event.participant_confirmed }} {{ event.participant_confirmed|pluralize:"is,are" }} in</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			{% else %}
+				<p>No events to display</p>
+			{% endif %}
+			</div>
+			
+	{% endif %}
+{% endblock %}		

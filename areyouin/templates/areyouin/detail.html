@@ -1,0 +1,54 @@
+{% extends 'areyouin/base.html' %}
+{% load static %}
+
+{% block title %}{{ event.event_name }}{% endblock %}
+
+
+
+{% block content %}
+	<div class="col-sm-offset-2 col-sm-10">
+		<h1 align="center">Are You In?</h1>
+	</div>
+	
+	<div class="col-lg-5">
+			
+	
+	<dl class="dl-horizontal">
+		<dt>Event:</dt>
+			<dd>{{ event.event_name }}</dd>
+		<dt>Description:</dt>
+			<dd>{{ event.event_description }}</dd>
+		<dt>Time:</dt>
+			<dd>{{ event.event_datetime }}</dd>
+	</dl>
+	
+	</div>
+	<div class="col-lg-5 ">
+	
+	<dl class="dl-horizontal">
+		{% for participant in participants %}
+		<dt>{{ participant.participant }}:</dt>
+			<dd>
+				{% if participant.date_accepted %}
+				{% if participant.date_accepted and participant.participant|stringformat:"s" == user.username %}
+					You're in!
+				{% else %}
+					I'm In!
+				{% endif %}
+			{% else %}
+				{% if participant.participant|stringformat:"s" == user.username %}
+					<a href="{% url 'areyouin:add_to_event' event.id participant.participant_id %}">Are you in?</a>
+				{% else %}
+					Awaiting reply.
+				{% endif %}
+			{% endif %}
+			</dd>
+		</dt>
+		{% endfor %}
+	</dl>
+	</div>
+	
+
+
+	
+{% endblock %}
