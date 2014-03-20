@@ -3,6 +3,9 @@
 
 {% block content %}
 	<div align="center"><img src="{% static 'areyouin_logo.png' %}"/></div>
+	{% if message %}
+	<span>{{ message }}</span>
+	{% endif %}
 	
 	{% if not user.is_authenticated %}
 		<h1 align=center>Create. Invite. Enjoy.</h1>

@@ -43,6 +43,7 @@ def add_to_event(request, event_id, participant_id):
     
 def create_event(request):
     context = RequestContext(request)
+    event_form = EventForm()
     if request.method == 'POST':
         event_form = EventForm(request.POST)
         if event_form.is_valid():
@@ -56,9 +57,8 @@ def create_event(request):
                 p1.save()
             return HttpResponseRedirect(reverse('areyouin:index'))
         else:
-            print event_form.is_valid()
             print event_form.errors
-    event_form = EventForm()
+    
     return render_to_response(
         'areyouin/create_event.html',
         {'event_form': event_form},
@@ -67,6 +67,7 @@ def create_event(request):
 def register(request):
     context = RequestContext(request)
     registered = False
+    user_form = UserForm()
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
         if user_form.is_valid():
@@ -83,8 +84,8 @@ def register(request):
             return HttpResponseRedirect(reverse('areyouin:login'))
         else:
             print user_form.errors
-    else:
-        user_form = UserForm()
+    
+        
     return render_to_response(
         'areyouin/register.html',
         {'user_form': user_form, 'registered': registered},

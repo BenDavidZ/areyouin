@@ -19,31 +19,63 @@
 					<input type="text" class="form-control" placeholder="First Name" id="id_first_name" name="first_name">
 				</div>
 			</div>
+			
 			<div class="form-group">
 				<label for="id_last_name" class="col-sm-2 control-label">Last Name</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" placeholder="Last Name" id="id_last_name" name="last_name">
 				</div>
 			</div>
+			{% if user_form.username.errors %}
+			<div class="form-group has-error">
+				<label for="id_username" class="col-sm-2 control-label">Username</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="Username" id="id_username" name="username">
+					<span>30 characters or fewer. Letters, numbers and @/./+/-/_ characters</span>
+					<span class="help-block">Username is required</span>
+				</div>
+			</div>
+			{% else %}
 			<div class="form-group">
 				<label for="id_username" class="col-sm-2 control-label">Username</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" placeholder="Username" id="id_username" name="username">
-					<p class="help-block">30 characters or fewer. Letters, numbers and @/./+/-/_ characters</p>
+					<span>30 characters or fewer. Letters, numbers and @/./+/-/_ characters</span>
 				</div>
 			</div>
+			{% endif %}
+			{% if user_form.email.errors %}
+			<div class="form-group has-error">
+				<label for="id_email" class="col-sm-2 control-label">Email Address</label>
+				<div class="col-sm-10">
+					<input type="email" class="form-control" placeholder="Email Address" id="id_email" name="email">
+					<span class="help-block">Email is required</span>
+				</div>
+			</div>
+			{% else %}
 			<div class="form-group">
 				<label for="id_email" class="col-sm-2 control-label">Email Address</label>
 				<div class="col-sm-10">
 					<input type="email" class="form-control" placeholder="Email Address" id="id_email" name="email">
 				</div>
 			</div>
+			{% endif %}
+			{% if user_form.password.errors %}
+			<div class="form-group has-error">
+				<label for="id_password" class="col-sm-2 control-label">Password</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" placeholder="Password" id="id_password" name="password">
+					<span class="help-block">Password is required</span>
+				</div>
+			</div>
+			{% else %}
 			<div class="form-group">
 				<label for="id_password" class="col-sm-2 control-label">Password</label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control" placeholder="Password" id="id_password" name="password">
 				</div>
 			</div>
+			{% endif %}
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-default">Register</button>
